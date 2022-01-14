@@ -1,0 +1,154 @@
+html,
+body {
+  min-width: 1360px;
+  height: 100%;
+  font-family: PingFangSC-Medium;
+}
+
+* {
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+#__nuxt,#__layout{
+  height: 100%;
+}
+a {
+  cursor: pointer;
+  color: var(--_tzlayout-color-primary);
+}
+
+::-webkit-scrollbar {
+  /* 滚动条整体样式 */
+  width: 6px; /* 高宽分别对应横竖滚动条的尺寸 */
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #dadae4;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #77797a;
+}
+
+.clearfix:before {
+  display: table;
+  content: '';
+}
+
+.clearfix:after {
+  display: table;
+  clear: both;
+  content: '';
+}
+
+.editor-img {
+  max-width: 100px;
+  max-height: 100px;
+  cursor: pointer;
+  vertical-align: text-bottom;
+}
+
+.chat-emoji {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-top;
+}
+
+.chat-emoji_wechat {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s linear;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.3s linear;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(380px);
+}
+
+.el-notification {
+  border: 1px solid #ebeef5 !important;
+}
+
+.el-popover {
+  min-width: 70px !important;
+}
+
+.pad0 {
+  padding: 0 !important;
+}
+
+body .el-table th.gutter {
+  display: table-cell !important;
+}
+
+body .el-table colgroup.gutter {
+  display: table-cell !important;
+}
+
+// ----------------------------
+.nuxt-layout-sidebar {
+  .el-submenu.is-active {
+    &:not(.is-opened) {
+      > .el-submenu__title {
+        svg,
+        span {
+          color: #3073f4 !important;
+        }
+      }
+    }
+
+    &:before {
+      background: none !important;
+    }
+
+    > .el-submenu__title {
+      background-color: transparent !important;
+      > div {
+        &:before {
+          background: none !important;
+        }
+      }
+      svg {
+        color: #75757e !important;
+      }
+      span {
+        color: #303943 !important;
+        font-weight: normal !important;
+      }
+    }
+  }
+
+  .el-submenu .el-menu {
+    margin: 0 !important;
+  }
+
+  .el-submenu .el-menu-item {
+    &.is-active {
+      background: #f5f7fd !important;
+    }
+
+    span {
+      margin-left: 15px;
+
+      &:before {
+        background-color: transparent !important;
+      }
+    }
+  }
+
+  .el-submenu__icon-arrow {
+    margin-top: -4px !important;
+  }
+}
