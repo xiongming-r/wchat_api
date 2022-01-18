@@ -25,49 +25,49 @@ process.on('unhandledRejection', (reason, p) => {
   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason)
   // sendErrCourier(reason)
 })
-app.get('/estimate',function(req,res){
-  console.log(req.query);
-    exec('D:/code/tools/go/wayz1103.exe --action estimate', (error, stdout, stderr) => {
+app.post('/estimate',function(req,res){
+  console.log(req.body);
+    exec(`D:/code/tools/go/wayz1103.exe --action estimate --tag-Codes ${req.body}`, (error, stdout, stderr) => {
       console.log(stdout, stderr)
       res.send(stdout)
     })
 })
-app.get('/create',function(req,res){
-  console.log(req.query);
-    exec('D:/code/tools/go/wayz1103.exe --action create', (error, stdout, stderr) => {
+app.post('/create',function(req,res){
+  console.log(req.body);
+    exec(`D:/code/tools/go/wayz1103.exe --action create --name ${req.body.name} --desc ${req.body.desc} --tag-Codes ${req.body.tagCodes}`, (error, stdout, stderr) => {
       console.log(stdout, stderr)
       res.send(stdout)
     })
 })
 app.get('/auth',function(req,res){
   console.log(req.query);
-  let url = `https://lbi-api.newayz.com/openapi/v1/precisionMarketing/threeParty/tencent/getAuthorizeUrl?scope=${req.query.scope}&advertiserId=${req.query.advertiserId}&account_type=${req.query.account_type}`
+  let url = `https://lbi-api.newayz.com/openapi/v1/precisionMarketing/threeParty/tencent/getAuthorizeUrl?accountId=${req.query.advertiserId}&scope=${req.query.scope}&account_type=${req.query.account_type}`
   let shell = `D:/code/tools/go/wayz1103.exe --action auth --auth-URL ${url}`
   console.log(shell);
-    // exec(shell, (error, stdout, stderr) => {
-    //   console.log(stdout, stderr)
-    //   res.send(stdout)
-    // })
+    exec(shell, (error, stdout, stderr) => {
+      console.log(stdout, stderr)
+      res.send(stdout)
+    })
 })
 app.post('/upload',function(req,res){
   console.log(req.body);
   let url = `https://lbi-api.newayz.com/openapi/v1/precisionMarketing/threeParty/tencent/uploadToMediaForClient`
   let shell = `D:/code/tools/go/wayz1103.exe --action upload --upload-URL ${url} --crowd ${req.body.wayzCrowdId} --advertiser-id ${req.body.advertiserId}`
   console.log(shell);
-    // exec(shell, (error, stdout, stderr) => {
-    //   console.log(stdout, stderr)
-    //   res.send(stdout)
-    // })
+    exec(shell, (error, stdout, stderr) => {
+      console.log(stdout, stderr)
+      res.send(stdout)
+    })
 })
 app.post('/query',function(req,res){
   console.log(req.body);
   let url = `https://lbi-api.newayz.com/openapi/v1/precisionMarketing/threeParty/tencent/query?advertiserId=${req.body.advertiserId}&wayzCrowdId=${req.body.wayzCrowdId}`
   let shell = `D:/code/tools/go/wayz1103.exe --action query --query-URL ${url}`
   console.log(shell);
-    // exec(shell, (error, stdout, stderr) => {
-    //   console.log(stdout, stderr)
-    //   res.send(stdout)
-    // })
+    exec(shell, (error, stdout, stderr) => {
+      console.log(stdout, stderr)
+      res.send(stdout)
+    })
 })
 
 

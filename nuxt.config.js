@@ -29,6 +29,7 @@ export default {
   plugins: [
     '@/plugins/antd-ui',
     '@/plugins/codemirror',
+    '@/plugins/vueclipboard2',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

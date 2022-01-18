@@ -79,8 +79,8 @@ export default {
             advertiserId:this.form.advertiserId,
         }
         await this.$axios.post('http://localhost:3001/upload',param).then(res=>{
-          console.log(res);
-          this.safetyCode=JSON.stringify(res,null,'\t')
+          console.log(res.data);
+          this.safetyCode=JSON.stringify(res.data,null,'\t')
         })
       } catch (error) {
         console.log(error);

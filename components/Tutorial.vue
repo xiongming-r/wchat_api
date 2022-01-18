@@ -1,5 +1,7 @@
 <template>
   <div class="main">
+    <Step4 />
+    <Step5 />
     <a-card title="授权" class="step1">
       <a-row :gutter="16">
         <a-col :span="12" >
@@ -27,6 +29,10 @@
               <a-button style="margin-left: 10px;" @click="resetForm">
                 重置
               </a-button>
+              <!-- <nuxt-link v-if="authSuccs" :to="http">点击复制网址</nuxt-link> -->
+              <a-button v-if="authSuccs" style="margin-left: 10px;" v-clipboard:copy="http" v-clipboard:success="onCopy" v-clipboard:error="onError">
+                点击复制网址
+              </a-button>
             </a-form-model-item>
           </a-form-model>
         </a-col>
@@ -49,6 +55,8 @@
 import api from '@/api/baseApi.js'
 import Step2 from '@/components/Step2.vue'
 import Step3 from '@/components/Step3.vue'
+import Step4 from '@/components/Step3.vue'
+import Step5 from '@/components/Step3.vue'
 export default {
   components:{
     Step2,
@@ -99,7 +107,7 @@ export default {
       cmOptions: {
         tabSize: 4,
         // mode: 'text/javascript',
-        theme: 'base16-light',
+        theme: 'elegant',
         lineNumbers: true,
         line: true,
         styleActiveLine: true,
@@ -116,7 +124,9 @@ export default {
         keyMap:'sublime',
         extraKeys:{'Ctrl':'autocomplete'}
         // more CodeMirror options...
-      }
+      },
+      authSuccs:false,
+      http:''
     }
   },
   mounted(){
@@ -134,15 +144,37 @@ export default {
         // console.log(url);
         await this.$axios.get('http://localhost:3001/auth'+`?scope=${this.form.scope}&advertiserId=${this.form.advertiserId}&account_type=${this.form.account_type}`).then(res=>{
           console.log(res);
-          this.safetyCode=JSON.stringify(res,null,'\t')
+          console.log();
+          let http = this.httpString(res.data)
+          let index =res.data.lastIndexOf('resp=')
+          let obj = res.data.substring(index+5,res.data.length)
+          this.safetyCode=JSON.stringify(obj,null,'\t')
+          if(http.length>0){
+            this.authSuccs=true
+            this.http=http[0]
+          }
         })
       } catch (error) {
         console.log(error);
         this.safetyCode=JSON.stringify(error,null,'\t')
       }
     },
+    goHttp(){
+
+    },
+    onCopy(e){
+      this.$message.success('已复制')
+    },
+    onError(e){
+      this.$message.error('复制失败')
+    },
     resetForm(){
       this.$refs.ruleForm.resetFields();
+    },
+    httpString(s) {
+     var reg = /(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g;
+      s = s.match(reg);
+     return (s)
     },
     onCmReady(cm) {
       console.log('the editor is readied!', cm)

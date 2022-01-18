@@ -27,16 +27,17 @@ const secretKey = "c5FrmwuwNMPOAMMT82Hie4tkYdk"
 
 //const body = `{ "segmentDTOList": [{ "polygons": [{ "filterType": [ 2 ], "startDate": 2, "value": "[ [106.769048, 29.649794], [106.554945, 29.581484], [113.784273, 23.226937], [113.336932, 23.122341], [113.541928, 23.122284], [114.216637, 30.504789], [114.185324, 30.481072], [121.639907, 31.28643], [121.627924, 31.281475], [109.581154, 24.399206], [125.265613, 43.877379], [125.222859, 43.857183], [121.194974, 31.283154], [121.194309, 31.293923], [116.441518, 39.977133], [121.504601, 31.255256], [116.548518, 40.094699], [123.163908, 41.683483], [116.465288, 39.962046], [121.061136, 31.733576], [121.488855, 31.161518], [113.338961, 23.140184], [104.065535, 30.587856], [116.498827, 39.912432], [121.252796, 30.34069], [120.225391, 30.215155], [121.482679, 31.184247], [120.227439, 30.212953], [120.230987, 30.214679], [121.459118, 31.171379], [121.35092, 31.142298], [121.53083, 38.861143], [116.495642, 40.00542], [123.439774, 41.707437], [116.248512, 40.086023], [121.404486, 31.174327], [121.476839, 31.238141], [121.615111, 31.250975] ]" }] }] }`
 // const estimateTempalte = `[{ "polygons": [%s] } ,{ "tagCodes":["102001002"] } ,{ "tagCodes":["102013001","102013003","102013004","102013005"] } ]` //高消费
-const estimateTempalte = `[{ "polygons": [%s] } ,{ "tagCodes":[%s] } ,{ "tagCodes":[%s] } ]` //高消费
-//const estimateTempalte = `[{ "polygons": [%s] } ,{ "tagCodes":["102001002"] } ,{ "tagCodes":["103008001","103008002","103008004"] } ]` //高档住宅
+const estimateTempalte = `[{ "polygons": [%s] } ,{ "tagCodes":[%s] } ]` //高消费
+// const estimateTempalte = `[{ "polygons": [%s] } ,{ "tagCodes":["102001002"] } ,{ "tagCodes":["103008001","103008002","103008004"] } ]` //高档住宅
 //const estimateTempalte = `[{ "polygons": [%s] } ,{ "tagCodes":["102001002"] } ]` //普通人群
 //const estimateTempalte = `[{ "polygons": [%s] }]`
 //const createTempalte = `{ "name": "ECARX投放项目人群包筛选", "desc": "ECARX投放项目，需要约100w设备号的人群包，用于在巨量引擎进行投放测试，验证平台投放流程的可用性", "segmentDTOList": [{ "polygons": [%s] },{ "tagCodes": [%s] }] }`
-const createTempalte = `{ "name": "梵誓投放项目", "desc": "梵誓投放项目", "segmentDTOList": [{ "polygons": [%s] } ,{ "tagCodes": ["102001002"] } ,{ "tagCodes": ["102013001","102013003","102013004","102013005"] }] }` //高消费
+// const createTempalte = `{ "name": "%s", "desc": "%s", "segmentDTOList": [{ "polygons": [%s] } ,{ "tagCodes": [%s] } ,{ "tagCodes": ["102013001","102013003","102013004","102013005"] }] }` //高消费
+const createTempalte = `{ "name": "%s", "desc": "%s", "segmentDTOList": [{ "polygons": [%s] } ,{ "tagCodes": [%s] } ] }` //高消费
 //const createTempalte = `{ "name": "梵誓投放项目", "desc": "梵誓投放项目", "segmentDTOList": [{ "polygons": [%s] } ,{ "tagCodes": ["102001002"] } ,{ "tagCodes": ["103008001","103008002","103008004"] }] }` //高档住宅
 //const createTempalte = `{ "name": "梵誓投放项目", "desc": "梵誓投放项目", "segmentDTOList": [{ "polygons": [%s] } ,{ "tagCodes": ["102001002"] }] }`  //普通人群
-// const estimateURL = "https://lbi-api.newayz.com/openapi/v1/cloud/segment/estimate"
-// const createURL = "https://lbi-api.newayz.com/openapi/v1/cloud/segment/create"
+const estimateURL = "https://lbi-api.newayz.com/openapi/v1/cloud/segment/estimate"
+const createURL = "https://lbi-api.newayz.com/openapi/v1/cloud/segment/create"
 // const segmentURL = "https://lbi-api.newayz.com/openapi/v1/segment/tags?segmentId=%d"
 // const segmentIdQueryURL = "https://lbi-api.newayz.com/openapi/v1/cloud/segment/ids?segmentIds=%d"
 
@@ -57,9 +58,9 @@ var crowd = flag.Int("crowd", -1, "the species we are studying")
 var advertiserId = flag.Int("advertiser-id", -1, "advertiser-id")
 var segmentId = flag.Int("segment-id", -1, "the species we are studying")
 var accessKey = flag.String("access-key","0VHgS2PKU3bB1OMOH9LvA1oaDE", "access key")
-var advertiserId = flag.String("advertiser-id","1708510001353741", "advertiser-id")
-var estimateURL = flag.String("estimate-URL","","estimate-URL")
-var createURL = flag.String("create-URL","","create-URL")
+// var advertiserId = flag.String("advertiser-id","1708510001353741", "advertiser-id")
+// var estimateURL = flag.String("estimate-URL","","estimate-URL")
+// var createURL = flag.String("create-URL","","create-URL")
 var segmentURL = flag.String("segment-URL","","segment-URL")
 var segmentIdQueryURL = flag.String("segmentIdQuery-URL","","segmentIdQuery-URL")
 var authURL = flag.String("auth-URL","","auth-URL")
@@ -67,6 +68,8 @@ var uploadURL = flag.String("upload-URL","","upload-URL")
 var pushURL = flag.String("push-URL","","push-URL")
 var publishURL = flag.String("publish-URL","","publish-URL")
 var queryURL = flag.String("query-URL","","query-URL")
+var name = flag.String("name","","name")
+var desc = flag.String("desc","","desc")
 // var estimateTempalte = flag.String("estimate-Tempalte","","estimate-Tempalte")
 // var createTempalte = flag.String("create-Tempalte","","create-Tempalte")
 
@@ -76,21 +79,21 @@ var tagCodes = flag.String("tag-Codes","","tag-Codes")
 
 func estimate() (string, *http.Request, error) {
 	p, _ := autoGen()
-	body := fmt.Sprintf(estimateTempalte, p,*tagCode,*tagCodes)
+	body := fmt.Sprintf(estimateTempalte, p, *tagCodes)
 	// body := *estimateTempalte
 	fmt.Printf("%s\n\n", body)
-	req, err := http.NewRequest("POST", *estimateURL, bytes.NewBuffer([]byte(body)))
+	req, err := http.NewRequest("POST", estimateURL, bytes.NewBuffer([]byte(body)))
 	return md5Body(body), req, err
 }
 
 func create() (string, *http.Request, error) {
 	//p, t := autoGen() 为了让create可以直接加tagcode
-	// p, _ := autoGen()
+	p, _ := autoGen()
 	//body := fmt.Sprintf(createTempalte, p, t)   为了让create可以直接加tagcode
-	// body := fmt.Sprintf(createTempalte, p)
-	body := *createTempalte
+	body := fmt.Sprintf(createTempalte, *name, *desc, p, *tagCodes)
+	// body := *createTempalte
 	fmt.Printf("%s\n\n", body)
-	req, err := http.NewRequest("POST", *createURL, bytes.NewBuffer([]byte(body)))
+	req, err := http.NewRequest("POST", createURL, bytes.NewBuffer([]byte(body)))
 	return md5Body(body), req, err
 }
 func getSign(req *http.Request) () {
